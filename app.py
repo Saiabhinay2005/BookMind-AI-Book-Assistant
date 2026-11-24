@@ -112,14 +112,29 @@ def get_bm25_retriever(book_id):
     return retriever
 
 
+def get_groq_api_key():
+    api_key = os.getenv("GROQ_API_KEY")
+
+    if not api_key:
+        try:
+            api_key = st.secrets.get("GROQ_API_KEY")
+        except (FileNotFoundError, KeyError):
+            api_key = None
+
+    return api_key
+
+
 def get_llm():
-    if not os.getenv("GROQ_API_KEY"):
+    api_key = get_groq_api_key()
+
+    if not api_key:
         return None
 
     return init_chat_model(
         "openai/gpt-oss-120b",
         model_provider="groq",
         temperature=0,
+        api_key=api_key
     )
 
 
@@ -243,7 +258,7 @@ def answer_question(question, book_id):
     llm = get_llm()
     if llm is None:
         raise RuntimeError(
-            "GROQ_API_KEY is missing. Add it to your .env file and restart Streamlit."
+            "GROQ_API_KEY is missing. Add it to your .env file or Streamlit Cloud Secrets."
         )
 
     # 1. Dense retrieval: semantic similarity search in ChromaDB.
@@ -457,9 +472,9 @@ with st.sidebar:
 
 
 # Main panel
-if not os.getenv("GROQ_API_KEY"):
+if not get_groq_api_key():
     st.warning(
-        "Add `GROQ_API_KEY=your_key_here` to your `.env` file to enable chat."
+        "Add GROQ_API_KEY to your .env file or Streamlit Cloud Secrets to enable chat."
     )
 
 if selected_id:
