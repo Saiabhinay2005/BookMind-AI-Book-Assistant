@@ -1,0 +1,30 @@
+
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-openai
+langchain-groq
+langchain-chroma
+langchain-huggingface
+
+chromadb
+
+# Document loaders
+pypdf
+python-docx
+docx2txt
+unstructured
+
+# Embeddings / tokenization
+tiktoken
+sentence-transformers
+rank-bm25
+
+# Environment variables
+python-dotenv
+
+# Interactive development
+ipykernel
+jupyter
+streamlit

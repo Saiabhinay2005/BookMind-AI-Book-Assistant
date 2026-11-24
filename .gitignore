@@ -1,0 +1,27 @@
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables
+.env
+.streamlit/secrets.toml
+
+# ChromaDB
+chroma_db/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Uploaded book information
+books.json
+
+# IDE settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+# Local PDF documents
+documentloadsers/*.pdf
